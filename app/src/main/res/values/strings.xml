@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TCC</string>
+    <string name="user">Nome de invocador</string>
 </resources>
