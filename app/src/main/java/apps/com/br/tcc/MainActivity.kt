@@ -1,8 +1,10 @@
 package apps.com.br.tcc
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import kotlinx.android.synthetic.main.activity_main.bt_login as submitButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,5 +16,12 @@ class MainActivity : AppCompatActivity() {
         val decorView = window.decorView
         val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
         decorView.systemUiVisibility = uiOptions
+
+        submitButton.setOnClickListener{ _ ->
+            val intent = Intent(this@MainActivity, NavigationActivity::class.java)
+
+            startActivity(intent)
+        }
     }
 }
+
