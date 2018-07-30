@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TCC</string>
     <string name="user">Nome de invocador</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="history_item">History item</string>
 </resources>
