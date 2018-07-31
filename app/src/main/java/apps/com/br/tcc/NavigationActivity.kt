@@ -14,6 +14,7 @@ class NavigationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_navigation)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        callFragment(UserDetailFragment())
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
