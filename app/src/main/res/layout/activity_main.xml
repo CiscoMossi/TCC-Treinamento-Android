@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:background="@android:color/white"
+    android:focusableInTouchMode="true"
     android:padding="30dp">
 
     <ImageView
@@ -17,15 +18,23 @@
         android:layout_height="wrap_content" />
 
     <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="70dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusedByDefault="false"
-            android:hint="@string/user"/>
+            android:hint="@string/user" />
 
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="@string/confirm"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
