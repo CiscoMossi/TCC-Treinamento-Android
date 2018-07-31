@@ -3,4 +3,7 @@
     <string name="user">Nome de invocador</string>
     <string name="history_item">History item</string>
     <string name="confirm">Go</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="search_users">Explorar</string>
+    <string name="my_profile">Perfil</string>
 </resources>

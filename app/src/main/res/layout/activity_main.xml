@@ -30,6 +30,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
+        android:id="@+id/bt_login"
         android:layout_marginTop="20dp"
         android:text="@string/confirm"
         android:textColor="@android:color/white"
