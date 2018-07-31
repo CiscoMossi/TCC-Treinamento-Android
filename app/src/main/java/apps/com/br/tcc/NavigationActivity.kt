@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import apps.com.br.tcc.fragments.SearchFragment
 import apps.com.br.tcc.fragments.UserDetailFragment
 import kotlinx.android.synthetic.main.activity_navigation.*
 
@@ -24,6 +25,7 @@ class NavigationActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_search -> {
+                callFragment(SearchFragment())
                 return@OnNavigationItemSelectedListener true
             }
         }

@@ -9,16 +9,18 @@ class HistoryManager {
 
     companion object {
         const val HISTORY_KEY = "history"
-        private var history: MutableList<History>? = null
+        var history: MutableList<History>? = null
 
-        fun getHistory() {
-            val favoritesString = SharedPreferencesManager.getString(Companion.HISTORY_KEY)
+        fun loadHistory() {
+            val historyString = SharedPreferencesManager.getString(Companion.HISTORY_KEY)
 
-            history = if (favoritesString != null) {
-                Gson().fromJson<MutableList<History>>(favoritesString, object : TypeToken<List<History>>(){}.type)
+            history = if (historyString != null) {
+                Gson().fromJson<MutableList<History>>(historyString, object : TypeToken<List<History>>(){}.type)
             } else {
                 ArrayList()
             }
+
+            history = MutableList<History>(5){ History("The Queen", "") }
         }
 
         private fun saveHistory() {
@@ -40,7 +42,6 @@ class HistoryManager {
             history = ArrayList()
             SharedPreferencesManager.delete(Companion.HISTORY_KEY)
         }
-
     }
 
 

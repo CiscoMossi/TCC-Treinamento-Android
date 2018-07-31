@@ -8,8 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import apps.com.br.tcc.R
 import apps.com.br.tcc.models.History
+import kotlinx.android.synthetic.main.history_item.view.*
 
-class HistoryAdapter(private val historyItems: List<History>, private val listener: Listener) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter(private val historyItems: MutableList<History>, private val listener: Listener) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -25,12 +26,12 @@ class HistoryAdapter(private val historyItems: List<History>, private val listen
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history: History = historyItems.get(position)
         //Picasso
+        holder.itemView.tv_username.text = history.usename
 
         holder.itemView.setOnClickListener({
             listener.onHistoryItemClicked(history)
         })
     }
-
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ivUseIcon: ImageView = itemView.findViewById(R.id.iv_history_item_icon)

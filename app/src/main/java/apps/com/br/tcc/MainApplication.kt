@@ -9,6 +9,6 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         SharedPreferencesManager.bind(this)
-        HistoryManager.getHistory()
+        HistoryManager.loadHistory()
     }
 }

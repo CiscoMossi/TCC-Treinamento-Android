@@ -22,8 +22,10 @@
             android:textColor="@color/backgroundColor"
             android:textColorHint="@color/backgroundColor"
             android:background="@drawable/blur_input"
+            android:drawableRight="@android:drawable/ic_menu_search"
+            android:paddingRight="20dp"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="50dp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
