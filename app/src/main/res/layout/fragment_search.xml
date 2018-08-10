@@ -22,18 +22,15 @@
             android:textColor="@color/backgroundColor"
             android:textColorHint="@color/backgroundColor"
             android:background="@drawable/blur_input"
-            android:drawableRight="@android:drawable/ic_menu_search"
-            android:paddingRight="20dp"
+            android:paddingEnd="20dp"
             android:layout_width="match_parent"
+            android:imeOptions="actionDone"
             android:layout_height="50dp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_last_searchs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="match_parent" />
 
 </LinearLayout>

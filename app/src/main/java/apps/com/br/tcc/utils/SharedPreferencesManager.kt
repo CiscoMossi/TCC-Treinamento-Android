@@ -5,6 +5,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.io.Serializable
+import java.util.*
 
 class SharedPreferencesManager {
 
@@ -26,6 +28,15 @@ class SharedPreferencesManager {
 
         fun getString(key: String): String? {
             return sharedPreferences?.getString(key, null)
+        }
+
+        fun setObject(key: String, value: Serializable) {
+            val stringValue = Gson().toJson(value)
+            setString(key, stringValue)
+        }
+
+        fun getObject(key: String) : Serializable {
+            return Gson().fromJson(sharedPreferences?.getString(key, null), Serializable::class.java)
         }
 
         fun delete(key: String) {

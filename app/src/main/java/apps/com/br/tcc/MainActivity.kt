@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.bt_login as submitButton
+import kotlinx.android.synthetic.main.activity_main.et_invocador as usernameInput
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         submitButton.setOnClickListener{ _ ->
             val intent = Intent(this@MainActivity, NavigationActivity::class.java)
-
+            intent.putExtra("USERNAME", usernameInput?.text)
             startActivity(intent)
         }
     }
