@@ -11,6 +11,6 @@ class MainApplication : Application() {
         super.onCreate()
         SharedPreferencesManager.bind(this)
         HistoryManager.loadHistory()
-        UserDetailManager.loadMatchHistory()
+        UserDetailManager.loadData("The Queen")
     }
 }
