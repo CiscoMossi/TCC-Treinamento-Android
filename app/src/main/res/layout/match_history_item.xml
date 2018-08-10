@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingVertical="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/rv_champion_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:text="testando minha recycler"
+            android:id="@+id/rv_match_status"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/rv_player_performance"
+            android:textAlignment="viewEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rv_match_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/rv_item_1"
+            android:layout_marginRight="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <ImageView
+            android:id="@+id/rv_item_2"
+            android:layout_marginRight="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <ImageView
+            android:id="@+id/rv_item_3"
+            android:layout_marginRight="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <ImageView
+            android:id="@+id/rv_item_4"
+            android:layout_marginRight="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <ImageView
+            android:id="@+id/rv_item_5"
+            android:layout_marginRight="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <ImageView
+            android:id="@+id/rv_item_6"
+            android:layout_marginRight="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+    </LinearLayout>
+</LinearLayout>
