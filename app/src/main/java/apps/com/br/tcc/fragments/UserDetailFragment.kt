@@ -12,7 +12,7 @@ class UserDetailFragment : Fragment() {
         val TAG = "UserDetailFragment"
         val USERNAME_KEY = "USERNAME"
 
-        fun newInstance(username: String): UserDetailFragment {
+        fun newInstance(username: String?): UserDetailFragment {
             val args = Bundle()
             args.putString(USERNAME_KEY, username)
 

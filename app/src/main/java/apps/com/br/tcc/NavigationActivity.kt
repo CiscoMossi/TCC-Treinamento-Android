@@ -5,22 +5,21 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
+import android.view.View
+import android.widget.EditText
+import android.widget.Toast
 import apps.com.br.tcc.adapters.HistoryAdapter
 import apps.com.br.tcc.fragments.SearchFragment
 import apps.com.br.tcc.fragments.UserDetailFragment
 import apps.com.br.tcc.models.History
 import kotlinx.android.synthetic.main.activity_navigation.*
-import kotlinx.android.synthetic.main.fragment_search.et_search as search
 
-class NavigationActivity : AppCompatActivity(), HistoryAdapter.Listener, TextView.OnEditorActionListener {
-
+class NavigationActivity : AppCompatActivity(), HistoryAdapter.Listener, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
-        val username = intent.extras["USERNAME"] as String
+        val username = intent.getStringExtra("USERNAME")
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         callFragment(UserDetailFragment.newInstance(username))
@@ -32,15 +31,16 @@ class NavigationActivity : AppCompatActivity(), HistoryAdapter.Listener, TextVie
         callFragment(fragment)
     }
 
-    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-        if(actionId == EditorInfo.IME_ACTION_DONE) {
-            val fragment : UserDetailFragment = UserDetailFragment.newInstance(search.text.toString())
-            callFragment(fragment)
+    override fun onClick(v: View?) {
+        val search = findViewById<EditText>(R.id.et_search)
+        val fragment : UserDetailFragment = UserDetailFragment.newInstance(search.text.toString())
+        callFragment(fragment)
+    }
 
-            return true
-        }
-
-        return false
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        val searchFragment = supportFragmentManager.findFragmentById(R.id.fl_content) as SearchFragment
+        searchFragment.onKeyUp()
+        return true
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
