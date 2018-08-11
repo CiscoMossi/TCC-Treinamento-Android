@@ -6,4 +6,6 @@
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="search_users">Explorar</string>
     <string name="my_profile">Perfil</string>
+    <string name="detail_history">Histórico</string>
+    <string name="player_ranked">E as rankeadas?</string>
 </resources>
