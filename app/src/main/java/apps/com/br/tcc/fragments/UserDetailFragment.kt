@@ -11,10 +11,7 @@ import apps.com.br.tcc.R
 import android.support.v7.widget.RecyclerView
 import apps.com.br.tcc.adapters.MatchHistoryAdapter
 import apps.com.br.tcc.api.LolService
-import apps.com.br.tcc.dtos.ChampionDTO
-import apps.com.br.tcc.dtos.ChampionsMasterieDTO
-import apps.com.br.tcc.dtos.RankingDTO
-import apps.com.br.tcc.dtos.SummonerDto
+import apps.com.br.tcc.dtos.*
 import apps.com.br.tcc.models.User
 import apps.com.br.tcc.utils.UserDetailManager
 import com.squareup.picasso.Picasso
@@ -90,6 +87,7 @@ class UserDetailFragment : Fragment() {
             override fun onResponse(call: Call<SummonerDto>?, response: Response<SummonerDto>?) {
                 response?.body()?.let {
                     UserDetailManager.addUserInfo(it)
+                    fetchMatchList(it)
                     fetchUserChampionMasterie(it)
                 }
             }
@@ -154,6 +152,44 @@ class UserDetailFragment : Fragment() {
 
                     UserDetailManager.handleRankings(rankings!!)
                     setUserDetailOnView(view)
+                }
+            }
+        })
+    }
+
+    fun fetchMatchList(summoner: SummonerDto) {
+        val request = LolService().getInstance()?.getMatchList(summoner.accountId, 9, apiKey)
+        var matchList: List<MatchDTO>?
+
+        request?.enqueue(object : retrofit2.Callback<List<MatchDTO>> {
+            override fun onFailure(call: Call<List<MatchDTO>>?, t: Throwable?) {
+                return
+            }
+
+            override fun onResponse(call: Call<List<MatchDTO>>?, response: Response<List<MatchDTO>>?) {
+                response?.body()?.let {
+                    matchList = it
+
+                    matchList?.forEach({ m -> fetchMatchDetails(m) })
+                }
+            }
+        })
+    }
+
+    fun fetchMatchDetails(matchDto: MatchDTO) {
+        val request = LolService().getInstance()?.getMatchDetails(matchDto.gameId, apiKey)
+        var matchDetail: MatchDetailDTO?
+
+        request?.enqueue(object : retrofit2.Callback<MatchDetailDTO> {
+            override fun onFailure(call: Call<MatchDetailDTO>?, t: Throwable?) {
+                return
+            }
+
+            override fun onResponse(call: Call<MatchDetailDTO>?, response: Response<MatchDetailDTO>?) {
+                response?.body()?.let {
+                    matchDetail = it
+
+                    UserDetailManager.handleMatchDetail(matchDetail!!)
                 }
             }
         })

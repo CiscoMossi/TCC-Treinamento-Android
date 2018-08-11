@@ -1,9 +1,6 @@
 package apps.com.br.tcc.api
 
-import apps.com.br.tcc.dtos.ChampionDTO
-import apps.com.br.tcc.dtos.ChampionsMasterieDTO
-import apps.com.br.tcc.dtos.RankingDTO
-import apps.com.br.tcc.dtos.SummonerDto
+import apps.com.br.tcc.dtos.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -22,7 +19,7 @@ interface LolApi {
 
     @GET("static-data/v3/champions/{id}")
     fun getChampionInfo(
-            @Path("id") id: Number,
+            @Path("id") id: Int,
             @Query("locale") locale: String,
             @Query("api_key") api_key: String) : Call<ChampionDTO>
 
@@ -31,5 +28,18 @@ interface LolApi {
     fun getRankedInfo(
             @Path("summonerId") id: Int,
             @Query("api_key") api_key: String) : Call<List<RankingDTO>>
+
+    @GET("match/v3/matchlists/by-account/{accountId}")
+    fun getMatchList(
+            @Path("accountId") id: Int,
+            @Query("endIndex") endIndex: Int,
+            @Query("api_key") api_key: String) : Call<List<MatchDTO>>
+
+    @GET("match/v3/matches/{matchId}")
+    fun getMatchDetails(
+            @Path("matchId") id: Int,
+            @Query("api_key") api_key: String) : Call<MatchDetailDTO>
+
+
 
 }

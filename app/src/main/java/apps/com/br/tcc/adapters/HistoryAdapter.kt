@@ -26,7 +26,7 @@ class HistoryAdapter(private val historyItems: MutableList<History>, private val
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val history: History = historyItems.get(position)
         //Picasso
-        holder.itemView.tv_username.text = history.usename
+        holder.itemView.tv_username.text = history.username
 
         holder.itemView.setOnClickListener({
             listener.onHistoryItemClicked(history)

@@ -40,7 +40,7 @@ class SearchFragment : Fragment(), HistoryAdapter.Listener {
 
         //startActivity(intent)
 
-        Toast.makeText(context, history.usename, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, history.username, Toast.LENGTH_LONG).show()
     }
 
     private fun displayHistory() {

@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
         submitButton.setOnClickListener{ _ ->
             val intent = Intent(this@MainActivity, NavigationActivity::class.java)
 
-            UserDetailManager.loadUserInfo(summonerName.text.toString())
+            UserDetailManager.loadUserInfo("The Queen")//summonerName.text.toString())]
+            UserDetailManager.loadMatchHistory()
             startActivity(intent)
         }
     }
