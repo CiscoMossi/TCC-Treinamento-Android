@@ -4,7 +4,9 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import apps.com.br.tcc.utils.UserDetailManager
 import kotlinx.android.synthetic.main.activity_main.bt_login as submitButton
+import kotlinx.android.synthetic.main.activity_main.ti_summoner_name as summonerName
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         submitButton.setOnClickListener{ _ ->
             val intent = Intent(this@MainActivity, NavigationActivity::class.java)
 
+            UserDetailManager.loadUserInfo(summonerName.text.toString())
             startActivity(intent)
         }
     }
