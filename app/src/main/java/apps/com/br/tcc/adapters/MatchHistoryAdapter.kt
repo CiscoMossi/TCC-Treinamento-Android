@@ -11,7 +11,7 @@ import apps.com.br.tcc.models.Match
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.match_history_item.view.*
 
-class MatchHistoryAdapter(private val historyMatches: List<Match>) : RecyclerView.Adapter<MatchHistoryAdapter.ViewHolder>() {
+class MatchHistoryAdapter(private val historyMatches: ArrayList<Match>) : RecyclerView.Adapter<MatchHistoryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val itemView = inflater.inflate(R.layout.match_history_item, parent, false)
@@ -42,5 +42,12 @@ class MatchHistoryAdapter(private val historyMatches: List<Match>) : RecyclerVie
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    }
+
+    fun addMatch(match : Match) {
+        val position = historyMatches.size
+        historyMatches.add(position, match)
+
+        notifyItemInserted(position)
     }
 }

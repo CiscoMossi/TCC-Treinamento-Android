@@ -12,6 +12,8 @@ import apps.com.br.tcc.adapters.HistoryAdapter
 import apps.com.br.tcc.fragments.SearchFragment
 import apps.com.br.tcc.fragments.UserDetailFragment
 import apps.com.br.tcc.models.History
+import apps.com.br.tcc.utils.UserDetailManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_navigation.*
 
 class NavigationActivity : AppCompatActivity(), HistoryAdapter.Listener, View.OnClickListener {
@@ -19,22 +21,23 @@ class NavigationActivity : AppCompatActivity(), HistoryAdapter.Listener, View.On
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
-        val username = intent.getStringExtra("USERNAME")
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        callFragment(UserDetailFragment.newInstance(username))
+        callFragment(UserDetailFragment())
     }
 
     override fun onHistoryItemClicked(history: History) {
-        val fragment : UserDetailFragment = UserDetailFragment.newInstance(history.usename)
+        UserDetailManager.loadUserInfo(history.username)
+        UserDetailManager.loadMatchHistory()
 
-        callFragment(fragment)
+        callFragment(UserDetailFragment())
     }
 
     override fun onClick(v: View?) {
         val search = findViewById<EditText>(R.id.et_search)
-        val fragment : UserDetailFragment = UserDetailFragment.newInstance(search.text.toString())
-        callFragment(fragment)
+        UserDetailManager.loadUserInfo(search.text.toString())
+        UserDetailManager.loadMatchHistory()
+        callFragment(UserDetailFragment())
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {

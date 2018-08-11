@@ -55,9 +55,8 @@ class SearchFragment : Fragment() {
     private fun filter(text: String) {
         if (!text.isEmpty()) {
             val lowerText = text.toLowerCase()
-
             this.historyCopy.clear()
-            this.historyCopy.addAll(HistoryManager.history.filter { item -> item.usename.toLowerCase().contains(lowerText) } as ArrayList<History>)
+            this.historyCopy.addAll(HistoryManager.history.filter { item -> item.username.toLowerCase().contains(lowerText) } as ArrayList<History>)
         } else {
             this.historyCopy.clear()
             this.historyCopy.addAll(HistoryManager.history)
@@ -66,7 +65,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun displayHistory() {
-        this.historyCopy.addAll(HistoryManager.history)
+        this.historyCopy.addAll(HistoryManager.history  )
 
         if(adapter == null) {
             adapter = HistoryAdapter(this.historyCopy, activity as HistoryAdapter.Listener)
