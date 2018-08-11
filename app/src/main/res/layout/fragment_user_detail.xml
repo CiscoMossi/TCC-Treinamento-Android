@@ -20,8 +20,15 @@
             app:contentScrim="?attr/colorPrimary"
             app:title="The Queen"
             app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp"
-            android:background="@drawable/emote5">
+            app:expandedTitleMarginEnd="64dp">
+
+            <ImageView
+                android:id="@+id/iv_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -31,8 +38,7 @@
                 android:layout_height="?attr/actionBarSize">
 
                 <ImageView
-                    android:id="@+id/player_icon"
-                    android:background="@drawable/emote3"
+                    android:id="@+id/iv_player_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
 
@@ -51,9 +57,9 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tv_champion"
-                android:text="Main Lee Sin"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -78,6 +84,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/iv_solo_icon"
                     android:layout_width="70dp"
                     android:layout_height="70dp" />
 
@@ -93,9 +100,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/tv_solo_ranking"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="CHALLENGER"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -106,7 +113,6 @@
                     android:layout_height="match_parent">
                     <TextView
                         android:id="@+id/tv_solo_lp"
-                        android:text="47LP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -117,6 +123,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/iv_flex_icon"
                     android:layout_width="70dp"
                     android:layout_height="70dp" />
 
@@ -128,13 +135,13 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:text="Solo/Duo"
+                        android:text="Flex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/tv_flex_ranking"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="CHALLENGER"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -145,7 +152,6 @@
                     android:layout_height="match_parent">
                     <TextView
                         android:id="@+id/tv_flex_lp"
-                        android:text="47LP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -167,10 +173,15 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_match_history"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:nestedScrollingEnabled="false"
+                android:layout_height="match_parent" />
 
-            </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_last_searchs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
