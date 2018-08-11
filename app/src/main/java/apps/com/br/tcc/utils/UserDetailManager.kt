@@ -2,6 +2,7 @@ package apps.com.br.tcc.utils
 
 import android.graphics.drawable.Drawable
 import apps.com.br.tcc.R
+import apps.com.br.tcc.adapters.MatchHistoryAdapter
 import apps.com.br.tcc.api.LolService
 import apps.com.br.tcc.dtos.ChampionDTO
 import apps.com.br.tcc.dtos.MatchDetailDTO
@@ -12,8 +13,6 @@ import apps.com.br.tcc.models.User
 import apps.com.br.tcc.models.UserRank
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import retrofit2.Call
-import retrofit2.Response
 
 @Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
 class UserDetailManager {
@@ -28,11 +27,8 @@ class UserDetailManager {
         const val RANKING_FLEX = "RANKED_FLEX_SR"
         const val RANKING_SOLO = "RANKED_SOLO_5x5"
 
-        const val apiKey = "RGAPI-76b4b99d-25eb-4995-9521-bc70dbfe6858"
 
         const val PROFILE_ICON_BASE_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/"
-        const val CHAMPION_IMAGE_BASE_URL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/"
-        const val CHAMPION_PROFILE_ICON = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/"
 
 
         fun addUserInfo(summoner: SummonerDto) {
@@ -95,59 +91,6 @@ class UserDetailManager {
             } else {
                 ArrayList()
             }
-
-        }
-
-        fun handleMatchDetail (matchDetailDTO: MatchDetailDTO) {
-            val participant = matchDetailDTO.participantIdentities.firstOrNull({p ->
-                p.player.summonerId === UserDetailManager.userDetails?.id
-            })
-
-            val participantStats = matchDetailDTO.participants.firstOrNull({p ->
-                p.participantId === participant?.participantId
-            })
-
-            val items  = listOf(
-                participantStats?.stats?.item0.toString(),
-                participantStats?.stats?.item1.toString(),
-                participantStats?.stats?.item2.toString(),
-                participantStats?.stats?.item3.toString(),
-                participantStats?.stats?.item4.toString(),
-                participantStats?.stats?.item5.toString()
-            )
-
-
-            val request = LolService().getInstance()?.getChampionInfo(
-                    participantStats?.championId!!, "pt_BR", apiKey)
-
-            var match : Match? = null
-
-            request?.enqueue(object: retrofit2.Callback<ChampionDTO?> {
-                override fun onFailure(call: Call<ChampionDTO?>, t: Throwable?) {
-                    return
-                }
-
-                override fun onResponse(call: Call<ChampionDTO?>, response: Response<ChampionDTO?>) {
-                    response?.body()?.let {
-
-                        match = Match (
-                                id = matchDetailDTO.gameId,
-                                status = if(participantStats?.stats?.win!!) {
-                                    "Vitória"
-                                } else "Derrota",
-                                kill = participantStats.stats.kills.toString(),
-                                death = participantStats.stats.deaths.toString(),
-                                assist = participantStats.stats.assists.toString(),
-                                items = items,
-                                championIcon = "${CHAMPION_PROFILE_ICON}${it.name}.png"
-                        )
-
-                        matchHistory?.add(match!!)
-                    }
-                }
-
-
-            })
 
         }
 

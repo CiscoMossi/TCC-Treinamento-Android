@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import apps.com.br.tcc.adapters.MatchHistoryAdapter
 import apps.com.br.tcc.api.LolService
 import apps.com.br.tcc.dtos.*
+import apps.com.br.tcc.models.Match
 import apps.com.br.tcc.models.User
 import apps.com.br.tcc.utils.UserDetailManager
 import com.squareup.picasso.Picasso
@@ -20,20 +21,25 @@ import retrofit2.Call
 import retrofit2.Response
 
 
+@Suppress("IMPLICIT_BOXING_IN_IDENTITY_EQUALS")
 class UserDetailFragment : Fragment() {
     private var adapter: MatchHistoryAdapter? = null
     private var rvMatchHistory: RecyclerView? = null
 
     private val PROFILE_ICON_BASE_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/"
     private val CHAMPION_IMAGE_BASE_URL = "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/"
+    private val CHAMPION_PROFILE_ICON = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/"
+    private val ITEM_BASE_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"
 
-    private val apiKey = "RGAPI-76b4b99d-25eb-4995-9521-bc70dbfe6858"
+    private val apiKey = "RGAPI-e74baf32-2fc2-4b84-88a4-06a4824772a6"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_user_detail, container, false)
         rvMatchHistory = view.findViewById(R.id.rv_match_history)
 
         fetchData(UserDetailManager.userDetails?.summonerName!!)
+
+        displayMatchHistory()
 
         return view
     }
@@ -86,9 +92,9 @@ class UserDetailFragment : Fragment() {
 
             override fun onResponse(call: Call<SummonerDto>?, response: Response<SummonerDto>?) {
                 response?.body()?.let {
+                    fetchUserChampionMasterie(it)
                     UserDetailManager.addUserInfo(it)
                     fetchMatchList(it)
-                    fetchUserChampionMasterie(it)
                 }
             }
 
@@ -158,7 +164,7 @@ class UserDetailFragment : Fragment() {
     }
 
     fun fetchMatchList(summoner: SummonerDto) {
-        val request = LolService().getInstance()?.getMatchList(summoner.accountId, 9, apiKey)
+        val request = LolService().getInstance()?.getMatchList(summoner.accountId, 3, apiKey)
         var matchList: MatchListDTO?
 
         request?.enqueue(object : retrofit2.Callback<MatchListDTO> {
@@ -189,9 +195,63 @@ class UserDetailFragment : Fragment() {
                 response?.body()?.let {
                     matchDetail = it
 
-                    UserDetailManager.handleMatchDetail(matchDetail!!)
+                    handleMatchDetail(matchDetail!!)
                 }
             }
         })
+    }
+
+    fun handleMatchDetail (matchDetailDTO: MatchDetailDTO) {
+        val participant = matchDetailDTO.participantIdentities.firstOrNull({p ->
+            p.player.summonerId === UserDetailManager.userDetails?.id
+        })
+
+        val participantStats = matchDetailDTO.participants.firstOrNull({p ->
+            p.participantId === participant?.participantId
+        })
+
+        val items  = listOf(
+                "${ITEM_BASE_URL}${participantStats?.stats?.item0.toString()}.png",
+                "${ITEM_BASE_URL}${participantStats?.stats?.item1.toString()}.png",
+                "${ITEM_BASE_URL}${participantStats?.stats?.item2.toString()}.png",
+                "${ITEM_BASE_URL}${participantStats?.stats?.item3.toString()}.png",
+                "${ITEM_BASE_URL}${participantStats?.stats?.item4.toString()}.png",
+                "${ITEM_BASE_URL}${participantStats?.stats?.item5.toString()}.png"
+        )
+
+
+        val request = LolService().getInstance()?.getChampionInfo(
+                participantStats?.championId!!, "pt_BR", apiKey)
+
+        var match : Match? = null
+
+        request?.enqueue(object: retrofit2.Callback<ChampionDTO?> {
+            override fun onFailure(call: Call<ChampionDTO?>, t: Throwable?) {
+                return
+            }
+
+            override fun onResponse(call: Call<ChampionDTO?>, response: Response<ChampionDTO?>) {
+                response?.body()?.let {
+
+                    match = Match (
+                            id = matchDetailDTO.gameId,
+                            status = if(participantStats?.stats?.win!!) {
+                                "Vitória"
+                            } else "Derrota",
+                            kill = participantStats.stats.kills.toString(),
+                            death = participantStats.stats.deaths.toString(),
+                            assist = participantStats.stats.assists.toString(),
+                            items = items,
+                            championIcon = "${CHAMPION_PROFILE_ICON}${it.name}.png"
+                    )
+
+
+                    this@UserDetailFragment.adapter?.addMatch(match!!)
+                }
+            }
+
+
+        })
+
     }
 }
