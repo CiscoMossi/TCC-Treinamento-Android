@@ -159,18 +159,18 @@ class UserDetailFragment : Fragment() {
 
     fun fetchMatchList(summoner: SummonerDto) {
         val request = LolService().getInstance()?.getMatchList(summoner.accountId, 9, apiKey)
-        var matchList: List<MatchDTO>?
+        var matchList: MatchListDTO?
 
-        request?.enqueue(object : retrofit2.Callback<List<MatchDTO>> {
-            override fun onFailure(call: Call<List<MatchDTO>>?, t: Throwable?) {
+        request?.enqueue(object : retrofit2.Callback<MatchListDTO> {
+            override fun onFailure(call: Call<MatchListDTO>?, t: Throwable?) {
                 return
             }
 
-            override fun onResponse(call: Call<List<MatchDTO>>?, response: Response<List<MatchDTO>>?) {
+            override fun onResponse(call: Call<MatchListDTO>?, response: Response<MatchListDTO>?) {
                 response?.body()?.let {
                     matchList = it
 
-                    matchList?.forEach({ m -> fetchMatchDetails(m) })
+                    matchList?.matches?.forEach({ m -> fetchMatchDetails(m) })
                 }
             }
         })

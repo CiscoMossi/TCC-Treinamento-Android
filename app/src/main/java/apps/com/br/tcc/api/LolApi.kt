@@ -31,9 +31,9 @@ interface LolApi {
 
     @GET("match/v3/matchlists/by-account/{accountId}")
     fun getMatchList(
-            @Path("accountId") id: Int,
+            @Path("accountId") accountId: Int,
             @Query("endIndex") endIndex: Int,
-            @Query("api_key") api_key: String) : Call<List<MatchDTO>>
+            @Query("api_key") api_key: String) : Call<MatchListDTO>
 
     @GET("match/v3/matches/{matchId}")
     fun getMatchDetails(
