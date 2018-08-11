@@ -31,7 +31,7 @@ class UserDetailFragment : Fragment() {
     private val CHAMPION_PROFILE_ICON = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/"
     private val ITEM_BASE_URL = "http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/"
 
-    private val apiKey = "RGAPI-e74baf32-2fc2-4b84-88a4-06a4824772a6"
+    private val apiKey = "RGAPI-56c7273f-631d-4bab-a7e0-1fd4a7a9825a"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_user_detail, container, false)
